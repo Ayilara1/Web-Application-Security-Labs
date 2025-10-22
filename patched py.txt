@@ -1,0 +1,48 @@
+import os
+import subprocess
+import shlex
+import hashlib
+import ast
+
+def get_secure_input(prompt):
+    user_input = input(prompt)
+    return shlex.quote(user_input)  # Sanitizes input to prevent command injection
+
+def execute_command():
+    user_input = get_secure_input("Enter a command: ")
+    try:
+        result = subprocess.run(user_input.split(), capture_output=True, text=True, check=True)
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Error executing command:", e)
+
+def validate_function_call(func_name):
+    allowed_functions = {"safe_function"}  # Define a whitelist of allowed functions
+    if func_name in allowed_functions:
+        globals()[func_name]()
+    else:
+        print("Invalid function call.")
+
+def download_and_verify(url):
+    safe_url = shlex.quote(url)
+    file_name = "downloaded_file.py"
+    subprocess.run(["wget", safe_url, "-O", file_name], check=True)
+    with open(file_name, "r", encoding="utf-8") as f:
+        file_content = f.read()
+    try:
+        ast.parse(file_content)  # Ensure file is valid Python syntax
+        print("File is safe to execute.")
+    except SyntaxError:
+        print("File contains unsafe code and will not be executed.")
+
+def process_secure_eval():
+    user_input = input("Enter a value to evaluate (only numbers allowed): ")
+    try:
+        result = ast.literal_eval(user_input)  # Restricts execution to basic types
+        print("Evaluation result:", result)
+    except (ValueError, SyntaxError):
+        print("Invalid input.")
+
+if __name__ == "__main__":
+    execute_command()
+    process_secure_eval()
