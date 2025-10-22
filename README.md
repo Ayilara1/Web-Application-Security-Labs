@@ -1,6 +1,6 @@
 # Web-Application-Security-Labs
 Web Application Security – Labs  Session Management and Web Security – Labs  Web Technologies and Database Security – Labs  Web Application Source Code Vulnerability Analysis – Labs
-# Repository Title (e.g., Web-Application-Security-Labs)
+# Repository Title (Web-Application-Security-Labs)
 
 A collection of labs demonstrating my skills in web application security, vulnerability analysis, and secure database practices.
 
@@ -20,4 +20,4 @@ A collection of labs demonstrating my skills in web application security, vulner
 
 ## What I Learned
 
-In this series of labs, I learned how to move from basic vulnerability scanning to in-depth manual analysis of a web application. The most challenging part was [mention a challenge, e.g., "performing blind SQL injection"], which I overcame by [mention the method, e.g., "using time-based queries"]. This project solidified my understanding of the OWASP Top 10.
+In this series of labs, I learned how to move from basic vulnerability scanning to in-depth manual analysis of a web application. The most challenging part was performing blind SQL injection, which I overcame by using time-based queries. This project solidified my understanding of the OWASP Top 10.
